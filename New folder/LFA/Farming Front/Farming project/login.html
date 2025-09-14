@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleek Farm Assistant - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <!-- Header: A simple, modern header for the login page -->
+    <header>
+        <div class="header-container">
+            <h1 class="logo">
+                <i class="fas fa-leaf text-primary-light"></i>
+                <span>Smart Farming Assistant</span>
+            </h1>
+            <div class="header-controls">
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" aria-label="Toggle dark mode" class="control-btn icon-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content: The login card with the form -->
+    <main class="main-container">
+        <div class="card login-card">
+            <h2 class="text-center">Welcome Back!</h2>
+            <form id="loginForm" class="form-grid">
+                <!-- Email Input -->
+                <div class="form-group">
+                    <label for="emailInput">Email Address</label>
+                    <input type="email" id="emailInput" placeholder="your.email@example.com" required>
+                </div>
+                <!-- Password Input -->
+                <div class="form-group">
+                    <label for="passwordInput">Password</label>
+                    <input type="password" id="passwordInput" placeholder="Enter your password" required>
+                </div>
+                <!-- Login Button -->
+                <div class="form-actions">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+            <div id="loginMessage" class="hidden result-box mt-4"></div>
+            <p class="text-center text-sm text-text-light/80 mt-4">
+                Don't have an account? <a href="#">Sign up here</a>
+            </p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Sleek Farm Assistant. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Link to the external JavaScript file -->
+    <script src="login.js"></script>
+</body>
+</html>

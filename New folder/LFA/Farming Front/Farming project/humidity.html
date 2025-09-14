@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Weather App</title>
+    <link rel="stylesheet" href="humidity.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">Simple Weather</div>
+        <nav class="nav">
+            <a href="#">Discover</a>
+            <a href="#">Following</a>
+            <a href="#">Weather</a>
+            <a href="#" class="active">Maps</a>
+            <a href="#">Hourly</a>
+            <a href="#">Monthly</a>
+        </nav>
+        <div class="user-profile">
+            <button>Personalize</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <aside class="sidebar">
+            <div class="current-weather">
+                <h2>Ahmedabad, GJ</h2>
+                <p class="date-time">As of 2:38 PM Sat, 13 Sep</p>
+                <div class="temperature">
+                    <span class="temp">32°</span>
+                    <span class="units">C</span>
+                    <span class="feels-like">Feels like 38°</span>
+                </div>
+                <div class="weather-details">
+                    <p>Humidity: 57%</p>
+                    <p>Wind: 10 km/h</p>
+                </div>
+                <button class="forecast-btn">See full forecast</button>
+            </div>
+
+            <div class="recommendations">
+                <h3>Today's Recommendations</h3>
+                <ul>
+                    <li>Umbrella ☔️</li>
+                    <li>Clothes 👕</li>
+                </ul>
+            </div>
+            
+            <div class="news">
+                <h3>News Feed</h3>
+                <div class="news-item">
+                    <p>Flood relief to be disbursed by Diwali, says Punjab CM Mann</p>
+                    <span class="source">Hindustan Times</span>
+                </div>
+            </div>
+        </aside>
+
+        <section class="map-section">
+            <div id="map-placeholder">
+                <p>This is where the dynamic map would be rendered.</p>
+                <div class="humidity-overlay">
+                    <span class="location" style="top: 50%; left: 50%;">Ahmedabad 57%</span>
+                    <span class="location" style="top: 60%; left: 40%;">Surat 65%</span>
+                    <span class="location" style="top: 30%; left: 60%;">Bhopal 62%</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="humidity.js"></script>
+</body>
+</html>

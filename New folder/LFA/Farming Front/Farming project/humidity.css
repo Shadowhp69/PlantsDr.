@@ -1,0 +1,131 @@
+:root {
+    --bg-color: #f0f2f5;
+    --sidebar-bg: #fff;
+    --primary-color: #007bff;
+    --text-color: #333;
+    --gray-text: #666;
+    --border-color: #ddd;
+    --header-height: 60px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: var(--header-height);
+    background-color: var(--sidebar-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.nav a {
+    text-decoration: none;
+    color: var(--gray-text);
+    padding: 10px 15px;
+    transition: color 0.3s;
+}
+
+.nav a:hover, .nav a.active {
+    color: var(--primary-color);
+}
+
+/* Main Container and Layout */
+.container {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    height: calc(100vh - var(--header-height));
+}
+
+.sidebar {
+    background-color: var(--sidebar-bg);
+    padding: 20px;
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+}
+
+.map-section {
+    background-color: #a4cce4; /* A placeholder for the map background */
+    position: relative;
+}
+
+/* Sidebar Sections */
+.current-weather, .recommendations, .news {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.temperature {
+    display: flex;
+    align-items: flex-end;
+    margin-top: 10px;
+}
+
+.temp {
+    font-size: 3em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.units, .feels-like {
+    font-size: 1.2em;
+    margin-left: 5px;
+    color: var(--gray-text);
+}
+
+.forecast-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+/* Map Placeholder and Overlay */
+#map-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: #fff;
+    font-size: 1.5em;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.humidity-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.location {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    transform: translate(-50%, -50%); /* Centering the label on its coordinates */
+}

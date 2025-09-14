@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Assistant - Farmer's Digital Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background-color: #fff;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: #4CAF50;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2e7d32;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .language-toggle {
+            background: none;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+
+        .language-toggle:hover {
+            background-color: #f0f0f0;
+        }
+
+        .weather-widget {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #e3f2fd;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: #1565c0;
+            font-weight: 500;
+        }
+
+        .navigation {
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            flex-grow: 1;
+        }
+
+        .nav-link {
+            width: 100%;
+            padding: 15px 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #777;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+        }
+
+        .nav-link.active {
+            color: #4CAF50;
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #4CAF50;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding-bottom: 20px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .welcome-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(to right, #4CAF50, #8bc34a);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .welcome-section p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .current-time {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .quick-actions, .dashboard-widgets {
+            margin-bottom: 30px;
+        }
+
+        .quick-actions h3, .dashboard-widgets h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2e7d32;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .action-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #eee;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .action-card i {
+            font-size: 2.5rem;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .action-card span {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .widget {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .dashboard-widgets {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-widgets {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .weather-info {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .weather-item i {
+            font-size: 1.8rem;
+            color: #1565c0;
+            margin-bottom: 5px;
+        }
+
+        .activity-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .activity-list li {
+            background-color: #fafafa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid #4CAF50;
+            font-size: 0.9rem;
+        }
+
+        .form-header, .weather-header, .predictions-header, .chat-header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .form-header i, .weather-header i, .predictions-header i, .chat-header i {
+            font-size: 3rem;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .form-header h2, .weather-header h2, .predictions-header h2, .chat-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2e7d32;
+        }
+
+        .form-header p, .weather-header p, .predictions-header p, .chat-header p {
+            font-size: 1rem;
+            color: #777;
+        }
+
+        .crop-form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+
+        .btn-secondary {
+            background-color: #e0e0e0;
+            color: #555;
+        }
+
+        .btn-secondary:hover {
+            background-color: #ccc;
+        }
+
+        .weather-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .metric-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .metric-card i {
+            font-size: 2rem;
+            color: #1565c0;
+        }
+
+        .metric-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .forecast-section {
+            margin-top: 30px;
+        }
+
+        .forecast-container {
+            display: flex;
+            justify-content: space-between;
+            overflow-x: auto;
+            gap: 15px;
+            padding-bottom: 10px;
+        }
+
+        .forecast-card {
+            min-width: 100px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            flex-shrink: 0;
+        }
+
+        .forecast-day {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .forecast-card i {
+            font-size: 2rem;
+            color: #1565c0;
+            margin-bottom: 5px;
+        }
+
+        .forecast-temps {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .forecast-temps .high {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .forecast-temps .low {
+            color: #777;
+        }
+
+        .forecast-rain {
+            font-size: 0.8rem;
+            color: #4CAF50;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .weather-alerts {
+            margin-top: 30px;
+        }
+
+        .alert-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .alert-card.high-alert {
+            background-color: #ffebee;
+            color: #d32f2f;
+            border-left: 4px solid #d32f2f;
+        }
+
+        .alert-card.medium-alert {
+            background-color: #fff3e0;
+            color: #f57c00;
+            border-left: 4px solid #f57c00;
+        }
+
+        .alert-card i {
+            font-size: 1.8rem;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .alert-description {
+            font-size: 0.9rem;
+        }
+
+        .predictions-grid, .risk-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .prediction-card {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .prediction-card i {
+            font-size: 2.5rem;
+            color: #4CAF50;
+        }
+
+        .prediction-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prediction-label {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .prediction-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2e7d32;
+        }
+
+        .prediction-subtitle {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .risk-item {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+
+        .risk-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .risk-header i {
+            font-size: 1.5rem;
+        }
+
+        .risk-header .risk-type {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .risk-badge {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .risk-badge.low {
+            background-color: #e8f5e9;
+            color: #43a047;
+        }
+
+        .risk-badge.medium {
+            background-color: #fffde7;
+            color: #ffc107;
+        }
+
+        .risk-item p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .recommendation-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            background-color: #e8f5e9;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 3px solid #43a047;
+        }
+
+        .recommendation-item i {
+            color: #43a047;
+        }
+
+        .confidence-meter {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .confidence-bar {
+            background-color: #eee;
+            border-radius: 12px;
+            height: 20px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 12px;
+            transition: width 0.5s ease;
+        }
+
+        .confidence-text {
+            font-weight: 600;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        /* Chat styles */
+        .chat-container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            max-height: 80vh;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .message.user-message {
+            justify-content: flex-end;
+        }
+
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+        
+        .message.user-message .message-avatar {
+            background-color: #1565c0;
+        }
+
+        .message-content {
+            max-width: 70%;
+        }
+
+        .message-text {
+            background-color: #f0f0f0;
+            padding: 12px 18px;
+            border-radius: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 0.9rem;
+        }
+        
+        .message.user-message .message-text {
+            background-color: #c5e1a5;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: #999;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .chat-input-container {
+            border-top: 1px solid #eee;
+            padding: 15px;
+            background-color: #fff;
+        }
+        
+        .chat-suggestions {
+            padding: 15px;
+            background-color: #f7f7f7;
+            border-top: 1px solid #eee;
+        }
+
+        .suggestions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .suggestion-btn {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .suggestion-btn:hover {
+            background-color: #dcedc8;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        #chat-input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            resize: none;
+            overflow-y: hidden;
+            max-height: 100px;
+        }
+
+        .send-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background-color: #45a049;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            font-size: 2rem;
+            color: #4CAF50;
+        }
+
+        .loading-spinner p {
+            margin-top: 10px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1001;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast-icon {
+            font-size: 1.2rem;
+        }
+
+        .toast-icon.success::before { content: '✔'; color: #4CAF50; }
+        .toast-icon.error::before { content: '✖'; color: #d32f2f; }
+        
+        /* New footer styles */
+        .dark-bg {
+            background-color: #0b1a2a;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(90deg, #10b981, #134e4a);
+        }
+
+        .footer-link {
+            transition: color 0.2s ease-in-out;
+        }
+
+        .footer-link:hover {
+            color: #10b981;
+        }
+
+        .footer-icon {
+            transition: color 0.2s ease-in-out;
+        }
+
+        .footer-icon:hover {
+            color: #10b981;
+        }
+
+        .weather-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <h1 data-translate="app.title">Agricultural Assistant</h1>
+                </div>
+                <div class="header-actions">
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <i class="fas fa-globe"></i>
+                        <span id="current-lang">EN</span>
+                    </button>
+                    <div class="weather-widget">
+                        <i class="fas fa-sun"></i>
+                        <span>28°C</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="container">
+            <ul class="nav-tabs">
+                <li class="nav-item">
+                    <button class="nav-link active" onclick="showTab('home')">
+                        <i class="fas fa-home"></i>
+                        <span data-translate="nav.home">Home</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showTab('crop')">
+                        <i class="fas fa-leaf"></i>
+                        <span data-translate="nav.crop">Crop Data</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showTab('weather')">
+                        <i class="fas fa-cloud-sun"></i>
+                        <span data-translate="nav.weather">Weather</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showTab('predictions')">
+                        <i class="fas fa-chart-line"></i>
+                        <span data-translate="nav.predictions">Predictions</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showTab('chat')">
+                        <i class="fas fa-comments"></i>
+                        <span data-translate="nav.chat">Chat Assistant</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Home Tab -->
+            <div id="home-tab" class="tab-content active">
+                <div class="welcome-section">
+                    <h2 data-translate="home.welcome">Welcome, Farmer</h2>
+                    <p data-translate="home.subtitle">Your digital farming companion</p>
+                    <div class="current-time" id="current-time"></div>
+                </div>
+
+                <div class="quick-actions">
+                    <h3 data-translate="home.quickActions">Quick Actions</h3>
+                    <div class="actions-grid">
+                        <button class="action-card" onclick="showTab('crop')">
+                            <i class="fas fa-plus-circle"></i>
+                            <span data-translate="home.addCrop">Add Crop Data</span>
+                        </button>
+                        <button class="action-card" onclick="showTab('weather')">
+                            <i class="fas fa-cloud"></i>
+                            <span data-translate="home.checkWeather">Check Weather</span>
+                        </button>
+                        <button class="action-card" onclick="showTab('predictions')">
+                            <i class="fas fa-chart-bar"></i>
+                            <span data-translate="home.viewPredictions">View Predictions</span>
+                        </button>
+                        <button class="action-card" onclick="showTab('chat')">
+                            <i class="fas fa-robot"></i>
+                            <span data-translate="home.askQuestion">Ask Assistant</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="dashboard-widgets">
+                    <div class="widget weather-summary">
+                        <h4 data-translate="home.todayWeather">Today's Weather</h4>
+                        <div class="weather-info">
+                            <div class="weather-item">
+                                <i class="fas fa-thermometer-half"></i>
+                                <span>28°C</span>
+                            </div>
+                            <div class="weather-item">
+                                <i class="fas fa-tint"></i>
+                                <span>65%</span>
+                            </div>
+                            <div class="weather-item">
+                                <i class="fas fa-wind"></i>
+                                <span>12 km/h</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget recent-activity">
+                        <h4 data-translate="home.recentActivity">Recent Activity</h4>
+                        <ul class="activity-list">
+                            <li>• Wheat crop data added - 2 days ago</li>
+                            <li>• Weather alert received - 1 day ago</li>
+                            <li>• Chat session completed - Today</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crop Data Tab -->
+            <div id="crop-tab" class="tab-content">
+                <div class="form-header">
+                    <i class="fas fa-leaf"></i>
+                    <h2 data-translate="crop.title">Crop Information</h2>
+                    <p data-translate="crop.subtitle">Enter your crop details</p>
+                </div>
+
+                <form class="crop-form" onsubmit="submitCropData(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="crop-type" data-translate="crop.cropType">Crop Type *</label>
+                            <select id="crop-type" required>
+                                <option value="" data-translate="crop.selectCrop">Select Crop Type</option>
+                                <option value="wheat">Wheat / गेहूं</option>
+                                <option value="rice">Rice / चावल</option>
+                                <option value="corn">Corn / मक्का</option>
+                                <option value="cotton">Cotton / कपास</option>
+                                <option value="sugarcane">Sugarcane / गन्ना</option>
+                                <option value="potato">Potato / आलू</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="planting-date" data-translate="crop.plantingDate">Planting Date *</label>
+                            <input type="date" id="planting-date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="field-size" data-translate="crop.fieldSize">Field Size (acres) *</label>
+                            <input type="number" id="field-size" placeholder="Enter field size" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="soil-type" data-translate="crop.soilType">Soil Type</label>
+                            <select id="soil-type">
+                                <option value="" data-translate="crop.selectSoil">Select Soil Type</option>
+                                <option value="clay">Clay / चिकनी मिट्टी</option>
+                                <option value="sandy">Sandy / रेतीली मिट्टी</option>
+                                <option value="loamy">Loamy / दोमट मिट्टी</option>
+                                <option value="black">Black / काली मिट्टी</option>
+                                <option value="red">Red / लाल मिट्टी</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="irrigation-type" data-translate="crop.irrigationType">Irrigation Type</label>
+                            <select id="irrigation-type">
+                                <option value="" data-translate="crop.selectIrrigation">Select Irrigation Type</option>
+                                <option value="drip">Drip / ड्रिप</option>
+                                <option value="sprinkler">Sprinkler / छिड़काव</option>
+                                <option value="flood">Flood / बाढ़</option>
+                                <option value="rainwater">Rainwater / बारिश का पानी</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fertilizer" data-translate="crop.fertilizer">Fertilizer Used</label>
+                            <input type="text" id="fertilizer" placeholder="Type of fertilizer used">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="notes" data-translate="crop.notes">Additional Notes</label>
+                            <textarea id="notes" rows="4" placeholder="Additional information about your crop"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="clearCropForm()" data-translate="common.clear">Clear</button>
+                        <button type="submit" class="btn-primary" data-translate="crop.addCrop">Add Crop</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Weather Tab -->
+            <div id="weather-tab" class="tab-content">
+                <div class="weather-header">
+                    <i class="fas fa-cloud-sun"></i>
+                    <h2 data-translate="weather.title">Weather Information</h2>
+                    <div class="location-selector">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <select id="location-select">
+                            <option value="delhi">New Delhi</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="bangalore">Bangalore</option>
+                            <option value="chennai">Chennai</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="current-weather">
+                    <div class="weather-main">
+                        <i class="fas fa-sun weather-icon"></i>
+                        <div class="weather-details">
+                            <div class="temperature">28°C</div>
+                            <div class="condition">Partly Cloudy</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weather-metrics">
+                    <div class="metric-card">
+                        <i class="fas fa-thermometer-half"></i>
+                        <div class="metric-info">
+                            <span class="metric-label" data-translate="weather.temperature">Temperature</span>
+                            <span class="metric-value">28°C</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fas fa-tint"></i>
+                        <div class="metric-info">
+                            <span class="metric-label" data-translate="weather.humidity">Humidity</span>
+                            <span class="metric-value">65%</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fas fa-cloud-rain"></i>
+                        <div class="metric-info">
+                            <span class="metric-label" data-translate="weather.rainfall">Rainfall</span>
+                            <span class="metric-value">2mm</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fas fa-wind"></i>
+                        <div class="metric-info">
+                            <span class="metric-label" data-translate="weather.windSpeed">Wind Speed</span>
+                            <span class="metric-value">12 km/h</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="forecast-section">
+                    <h3 data-translate="weather.forecast">7-Day Forecast</h3>
+                    <div class="forecast-container">
+                        <div class="forecast-card">
+                            <div class="forecast-day">Today</div>
+                            <i class="fas fa-sun"></i>
+                            <div class="forecast-temps">
+                                <span class="high">32°</span>
+                                <span class="low">22°</span>
+                            </div>
+                            <div class="forecast-rain">10%</div>
+                        </div>
+                        <div class="forecast-card">
+                            <div class="forecast-day">Tomorrow</div>
+                            <i class="fas fa-cloud-rain"></i>
+                            <div class="forecast-temps">
+                                <span class="high">28°</span>
+                                <span class="low">20°</span>
+                            </div>
+                            <div class="forecast-rain">80%</div>
+                        </div>
+                        <div class="forecast-card">
+                            <div class="forecast-day">Wed</div>
+                            <i class="fas fa-cloud"></i>
+                            <div class="forecast-temps">
+                                <span class="high">26°</span>
+                                <span class="low">18°</span>
+                            </div>
+                            <div class="forecast-rain">60%</div>
+                        </div>
+                        <div class="forecast-card">
+                            <div class="forecast-day">Thu</div>
+                            <i class="fas fa-sun"></i>
+                            <div class="forecast-temps">
+                                <span class="high">30°</span>
+                                <span class="low">21°</span>
+                            </div>
+                            <div class="forecast-rain">20%</div>
+                        </div>
+                        <div class="forecast-card">
+                            <div class="forecast-day">Fri</div>
+                            <i class="fas fa-cloud-rain"></i>
+                            <div class="forecast-temps">
+                                <span class="high">24°</span>
+                                <span class="low">16°</span>
+                            </div>
+                            <div class="forecast-rain">90%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weather-alerts">
+                    <h3 data-translate="weather.alerts">Weather Alerts</h3>
+                    <div class="alert-card high-alert">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div class="alert-content">
+                            <div class="alert-title">Heavy Rain</div>
+                            <div class="alert-description">Heavy rainfall expected tomorrow. Take necessary precautions for crops.</div>
+                        </div>
+                    </div>
+                    <div class="alert-card medium-alert">
+                        <i class="fas fa-wind"></i>
+                        <div class="alert-content">
+                            <div class="alert-title">High Wind</div>
+                            <div class="alert-description">Strong winds expected in the afternoon. Secure loose structures.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Predictions Tab -->
+            <div id="predictions-tab" class="tab-content">
+                <div class="predictions-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h2 data-translate="predictions.title">Crop Predictions</h2>
+                    <p>AI-powered crop insights</p>
+                </div>
+
+                <div class="crop-selector">
+                    <label data-translate="predictions.selectedCrop">Selected Crop:</label>
+                    <select id="prediction-crop">
+                        <option value="wheat">Wheat / गेहूं</option>
+                        <option value="rice">Rice / चावल</option>
+                        <option value="corn">Corn / मक्का</option>
+                    </select>
+                </div>
+
+                <div class="predictions-grid">
+                    <div class="prediction-card">
+                        <i class="fas fa-chart-bar"></i>
+                        <div class="prediction-info">
+                            <span class="prediction-label" data-translate="predictions.yieldPrediction">Yield Prediction</span>
+                            <span class="prediction-value">45 quintals/acre</span>
+                            <span class="prediction-subtitle">Expected yield</span>
+                        </div>
+                    </div>
+                    <div class="prediction-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div class="prediction-info">
+                            <span class="prediction-label" data-translate="predictions.harvestTime">Optimal Harvest Time</span>
+                            <span class="prediction-value">15 April 2024</span>
+                            <span class="prediction-subtitle">Optimal harvest</span>
+                        </div>
+                    </div>
+                    <div class="prediction-card">
+                        <i class="fas fa-heartbeat"></i>
+                        <div class="prediction-info">
+                            <span class="prediction-label" data-translate="predictions.cropHealth">Crop Health</span>
+                            <span class="prediction-value">85%</span>
+                            <span class="prediction-subtitle">Health score</span>
+                        </div>
+                    </div>
+                    <div class="prediction-card">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div class="prediction-info">
+                            <span class="prediction-label" data-translate="predictions.marketPrice">Market Price Forecast</span>
+                            <span class="prediction-value">₹2,200/quintal</span>
+                            <span class="prediction-subtitle">Expected price</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="risk-analysis">
+                    <h3 data-translate="predictions.riskAnalysis">Risk Analysis</h3>
+                    <div class="risk-container">
+                        <div class="risk-item">
+                            <div class="risk-header">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span class="risk-type">Weather</span>
+                                <span class="risk-badge low">Low</span>
+                            </div>
+                            <p class="risk-description">Favorable weather conditions expected</p>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-header">
+                                <i class="fas fa-bug"></i>
+                                <span class="risk-type">Pest</span>
+                                <span class="risk-badge medium">Medium</span>
+                            </div>
+                            <p class="risk-description">Monitor for aphids in coming weeks</p>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-header">
+                                <i class="fas fa-virus"></i>
+                                <span class="risk-type">Disease</span>
+                                <span class="risk-badge low">Low</span>
+                            </div>
+                            <p class="risk-description">No major disease threats detected</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <h3 data-translate="predictions.recommendations">Recommendations</h3>
+                    <div class="recommendations-list">
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Apply final dose of fertilizer by March 15</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Monitor soil moisture levels regularly</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Harvest when grain moisture is 18-20%</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Consider selling 60% of crop immediately after harvest</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="confidence-meter">
+                    <h4>Prediction Confidence</h4>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: 92%"></div>
+                    </div>
+                    <span class="confidence-text">92%</span>
+                </div>
+            </div>
+
+            <!-- Chat Tab -->
+            <div id="chat-tab" class="tab-content">
+                <div class="chat-header">
+                    <i class="fas fa-robot"></i>
+                    <h2 data-translate="chat.title">Chat Assistant</h2>
+                    <p>AI farming assistant</p>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message bot-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-text" data-translate="chat.welcome">Hello! I am your farming assistant. How can I help you today?</div>
+                                <div class="message-time">Just now</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-suggestions" id="chat-suggestions">
+                        <h4>Quick Questions:</h4>
+                        <div class="suggestions-grid">
+                            <button class="suggestion-btn" onclick="sendSuggestion('How to improve crop yield?')">
+                                How to improve crop yield?
+                            </button>
+                            <button class="suggestion-btn" onclick="sendSuggestion('Best time to plant wheat?')">
+                                Best time to plant wheat?
+                            </button>
+                            <button class="suggestion-btn" onclick="sendSuggestion('Organic fertilizer tips')">
+                                Organic fertilizer tips
+                            </button>
+                            <button class="suggestion-btn" onclick="sendSuggestion('Pest control methods')">
+                                Pest control methods
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-container">
+                        <div class="chat-input-wrapper">
+                            <textarea
+                                id="chat-input"
+                                data-translate-placeholder="chat.placeholder"
+                                placeholder="Ask me about farming, crops, weather..."
+                                rows="1"
+                                onkeypress="handleChatKeyPress(event)"
+                            ></textarea>
+                            <button class="send-btn" onclick="sendMessage()" id="send-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="text-white pt-10 rounded-t-lg dark-bg">
+        <!-- Top Section: Newsletter -->
+        <div class="gradient-bg py-12 rounded-t-lg">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-2" data-translate="footer.newsletterTitle">Stay Updated with Farming Insights</h2>
+                <p class="text-gray-200 mb-6 max-w-2xl mx-auto" data-translate="footer.newsletterSubtitle">
+                    Get the latest agricultural tips, weather updates, and technology news.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <input type="email" data-translate-placeholder="footer.emailPlaceholder" placeholder="Enter your email" class="w-full sm:w-80 p-3 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-400">
+                    <button class="w-full sm:w-auto p-3 rounded-lg font-semibold bg-white text-green-700 hover:bg-gray-200 transition-colors duration-200" data-translate="footer.subscribeBtn">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Section: Main Links and Contact Info -->
+        <div class="container mx-auto px-4 py-12 border-b border-gray-700">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Brand Info -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-leaf text-2xl text-green-400"></i>
+                        <span class="text-2xl font-bold" data-translate="footer.brandName">Agricultural Assistant</span>
+                    </div>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-4" data-translate="footer.brandDescription">
+                        Empowering farmers with cutting-edge technology and AI-driven insights to maximize crop yields, optimize resource usage, and build sustainable agricultural practices for the future.
+                    </p>
+                    <div class="text-sm text-gray-400 space-y-2">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-map-marker-alt text-green-400"></i>
+                            <span>123 Farm Tech Boulevard, Agriculture City, AC 12345</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-phone-alt text-green-400"></i>
+                            <span>+1 (555) 123-FARM</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-envelope text-green-400"></i>
+                            <span>support@agriassistant.com</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Company Links -->
+                <div>
+                    <h3 class="font-bold text-lg mb-4" data-translate="footer.company">Company</h3>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="footer-link" data-translate="footer.aboutUs">About Us</a></li>
+                        <li><a href="#" class="footer-link" data-translate="footer.ourMission">Our Mission</a></li>
+                        <li><a href="#" class="footer-link" data-translate="footer.careers">Careers</a></li>
+                        <li><a href="#" class="footer-link" data-translate="footer.press">Press</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services Links -->
+                <div>
+                    <h3 class="font-bold text-lg mb-4" data-translate="footer.services">Services</h3>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="footer-link" data-translate="footer.cropMonitoring">Crop Monitoring</a></li>
+                        <li><a href="#" class="footer-link" data-translate="footer.weatherForecasting">Weather Forecasting</a></li>
+                        <li><a href="#" class="footer-link" data-translate="footer.yieldPrediction">Yield Prediction</a></li>
+                        <li><a href="#" class="footer-link" data-translate="footer.aiAssistant">AI Assistant</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support Links -->
+                <div>
+                    <h3 class="font-bold text-lg mb-4" data-translate="footer.support">Support</h3>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="footer-link" data-translate="footer.helpCenter">Help Center</a></li>
+                        <li><a href="#" class="footer-link" data-translate="footer.contactUs">Contact Us</a></li>
+                        <li><a href="#" class="footer-link" data-translate="footer.communityForum">Community Forum</a></li>
+                        <li><a href="#" class="footer-link" data-translate="footer.training">Training</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weather Outlook Section -->
+        <div class="container mx-auto px-4 py-8 text-center">
+            <h3 class="font-bold text-lg mb-6" data-translate="footer.weatherOutlookTitle">Agricultural Weather Outlook</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Today's Weather Card -->
+                <div class="weather-card p-6 rounded-lg text-center">
+                    <p class="font-semibold text-gray-300" data-translate="footer.today">Today</p>
+                    <i class="fas fa-sun text-4xl text-yellow-300 my-4"></i>
+                    <p class="text-3xl font-bold">28°</p>
+                    <p class="text-sm text-gray-400" data-translate="footer.sunny">Sunny</p>
+                </div>
+                <!-- Tomorrow's Weather Card -->
+                <div class="weather-card p-6 rounded-lg text-center">
+                    <p class="font-semibold text-gray-300" data-translate="footer.tomorrow">Tomorrow</p>
+                    <i class="fas fa-cloud-sun text-4xl text-gray-300 my-4"></i>
+                    <p class="text-3xl font-bold">26°</p>
+                    <p class="text-sm text-gray-400" data-translate="footer.partlyCloudy">Partly Cloudy</p>
+                </div>
+                <!-- Wednesday's Weather Card -->
+                <div class="weather-card p-6 rounded-lg text-center">
+                    <p class="font-semibold text-gray-300" data-translate="footer.wednesday">Wednesday</p>
+                    <i class="fas fa-cloud-showers-heavy text-4xl text-blue-400 my-4"></i>
+                    <p class="text-3xl font-bold">24°</p>
+                    <p class="text-sm text-gray-400" data-translate="footer.lightRain">Light Rain</p>
+                </div>
+                <!-- Thursday's Weather Card -->
+                <div class="weather-card p-6 rounded-lg text-center">
+                    <p class="font-semibold text-gray-300" data-translate="footer.thursday">Thursday</p>
+                    <i class="fas fa-cloud text-4xl text-gray-400 my-4"></i>
+                    <p class="text-3xl font-bold">22°</p>
+                    <p class="text-sm text-gray-400" data-translate="footer.overcast">Overcast</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Section: Copyright and Social Icons -->
+        <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <span class="font-semibold text-gray-400" data-translate="footer.followUs">Follow us:</span>
+                <a href="#" class="footer-icon text-gray-400 hover:text-green-400"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="footer-icon text-gray-400 hover:text-green-400"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="footer-icon text-gray-400 hover:text-green-400"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="footer-icon text-gray-400 hover:text-green-400"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+                <span>© <span id="current-year"></span> Agricultural Assistant. <span data-translate="footer.copyright">All rights reserved.</span></span>
+                <a href="#" class="flex items-center space-x-1 text-xs text-gray-500 hover:text-green-400">
+                    <span data-translate="footer.builtWith">Built with</span>
+                    <i class="fas fa-bolt text-green-400"></i>
+                    <span data-translate="footer.forFarmers">for farmers worldwide</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p data-translate="common.loading">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="toast-icon"></i>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <!-- Combined JavaScript -->
+    <script>
+        // Language translation data
+        const translations = {
+            en: {
+                "app.title": "Agricultural Assistant",
+                "nav.home": "Home",
+                "nav.crop": "Crop Data",
+                "nav.weather": "Weather",
+                "nav.predictions": "Predictions",
+                "nav.chat": "Chat Assistant",
+                "home.welcome": "Welcome, Farmer",
+                "home.subtitle": "Your digital farming companion",
+                "home.quickActions": "Quick Actions",
+                "home.addCrop": "Add Crop Data",
+                "home.checkWeather": "Check Weather",
+                "home.viewPredictions": "View Predictions",
+                "home.askQuestion": "Ask Assistant",
+                "home.todayWeather": "Today's Weather",
+                "home.recentActivity": "Recent Activity",
+                "crop.title": "Crop Information",
+                "crop.subtitle": "Enter your crop details",
+                "crop.cropType": "Crop Type *",
+                "crop.selectCrop": "Select Crop Type",
+                "crop.plantingDate": "Planting Date *",
+                "crop.fieldSize": "Field Size (acres) *",
+                "crop.soilType": "Soil Type",
+                "crop.selectSoil": "Select Soil Type",
+                "crop.irrigationType": "Irrigation Type",
+                "crop.selectIrrigation": "Select Irrigation Type",
+                "crop.fertilizer": "Fertilizer Used",
+                "crop.notes": "Additional Notes",
+                "crop.addCrop": "Add Crop",
+                "common.clear": "Clear",
+                "weather.title": "Weather Information",
+                "weather.forecast": "7-Day Forecast",
+                "weather.alerts": "Weather Alerts",
+                "weather.temperature": "Temperature",
+                "weather.humidity": "Humidity",
+                "weather.rainfall": "Rainfall",
+                "weather.windSpeed": "Wind Speed",
+                "predictions.title": "Crop Predictions",
+                "predictions.selectedCrop": "Selected Crop:",
+                "predictions.yieldPrediction": "Yield Prediction",
+                "predictions.harvestTime": "Optimal Harvest Time",
+                "predictions.cropHealth": "Crop Health",
+                "predictions.marketPrice": "Market Price Forecast",
+                "predictions.riskAnalysis": "Risk Analysis",
+                "predictions.recommendations": "Recommendations",
+                "chat.title": "Chat Assistant",
+                "chat.welcome": "Hello! I am your farming assistant. How can I help you today?",
+                "chat.placeholder": "Ask me about farming, crops, weather...",
+                "chat.botResponse": "This is a simulated response for: ",
+                "footer.newsletterTitle": "Stay Updated with Farming Insights",
+                "footer.newsletterSubtitle": "Get the latest agricultural tips, weather updates, and technology news.",
+                "footer.emailPlaceholder": "Enter your email",
+                "footer.subscribeBtn": "Subscribe",
+                "footer.company": "Company",
+                "footer.aboutUs": "About Us",
+                "footer.ourMission": "Our Mission",
+                "footer.careers": "Careers",
+                "footer.press": "Press",
+                "footer.services": "Services",
+                "footer.cropMonitoring": "Crop Monitoring",
+                "footer.weatherForecasting": "Weather Forecasting",
+                "footer.yieldPrediction": "Yield Prediction",
+                "footer.aiAssistant": "AI Assistant",
+                "footer.support": "Support",
+                "footer.helpCenter": "Help Center",
+                "footer.contactUs": "Contact Us",
+                "footer.communityForum": "Community Forum",
+                "footer.training": "Training",
+                "footer.weatherOutlookTitle": "Agricultural Weather Outlook",
+                "footer.today": "Today",
+                "footer.tomorrow": "Tomorrow",
+                "footer.wednesday": "Wednesday",
+                "footer.thursday": "Thursday",
+                "footer.sunny": "Sunny",
+                "footer.partlyCloudy": "Partly Cloudy",
+                "footer.lightRain": "Light Rain",
+                "footer.overcast": "Overcast",
+                "footer.followUs": "Follow us:",
+                "footer.copyright": "All rights reserved.",
+                "footer.builtWith": "Built with",
+                "footer.forFarmers": "for farmers worldwide",
+                "common.loading": "Loading..."
+            },
+            hi: {
+                "app.title": "कृषि सहायक",
+                "nav.home": "होम",
+                "nav.crop": "फसल डेटा",
+                "nav.weather": "मौसम",
+                "nav.predictions": "अनुमान",
+                "nav.chat": "चैट सहायक",
+                "home.welcome": "स्वागत है, किसान",
+                "home.subtitle": "आपका डिजिटल कृषि साथी",
+                "home.quickActions": "त्वरित कार्य",
+                "home.addCrop": "फसल डेटा जोड़ें",
+                "home.checkWeather": "मौसम की जाँच करें",
+                "home.viewPredictions": "अनुमान देखें",
+                "home.askQuestion": "सहायक से पूछें",
+                "home.todayWeather": "आज का मौसम",
+                "home.recentActivity": "हाल की गतिविधि",
+                "crop.title": "फसल की जानकारी",
+                "crop.subtitle": "अपनी फसल का विवरण दर्ज करें",
+                "crop.cropType": "फसल का प्रकार *",
+                "crop.selectCrop": "फसल का प्रकार चुनें",
+                "crop.plantingDate": "रोपण की तारीख *",
+                "crop.fieldSize": "खेत का आकार (एकड़) *",
+                "crop.soilType": "मिट्टी का प्रकार",
+                "crop.selectSoil": "मिट्टी का प्रकार चुनें",
+                "crop.irrigationType": "सिंचाई का प्रकार",
+                "crop.selectIrrigation": "सिंचाई का प्रकार चुनें",
+                "crop.fertilizer": "खाद का उपयोग",
+                "crop.notes": "अतिरिक्त नोट्स",
+                "crop.addCrop": "फसल जोड़ें",
+                "common.clear": "साफ़ करें",
+                "weather.title": "मौसम की जानकारी",
+                "weather.forecast": "7-दिन का पूर्वानुमान",
+                "weather.alerts": "मौसम अलर्ट",
+                "weather.temperature": "तापमान",
+                "weather.humidity": "नमी",
+                "weather.rainfall": "वर्षा",
+                "weather.windSpeed": "हवा की गति",
+                "predictions.title": "फसल के अनुमान",
+                "predictions.selectedCrop": "चयनित फसल:",
+                "predictions.yieldPrediction": "पैदावार का अनुमान",
+                "predictions.harvestTime": "कटाई का इष्टतम समय",
+                "predictions.cropHealth": "फसल स्वास्थ्य",
+                "predictions.marketPrice": "बाजार मूल्य पूर्वानुमान",
+                "predictions.riskAnalysis": "जोखिम विश्लेषण",
+                "predictions.recommendations": "सिफारिशें",
+                "chat.title": "चैट सहायक",
+                "chat.welcome": "नमस्ते! मैं आपका कृषि सहायक हूँ। मैं आज आपकी क्या मदद कर सकता हूँ?",
+                "chat.placeholder": "खेती, फसलों, मौसम के बारे में मुझसे पूछें...",
+                "chat.botResponse": "यह एक नकली प्रतिक्रिया है: ",
+                "footer.newsletterTitle": "खेती की जानकारी के साथ अपडेट रहें",
+                "footer.newsletterSubtitle": "नवीनतम कृषि युक्तियाँ, मौसम अपडेट और प्रौद्योगिकी समाचार प्राप्त करें।",
+                "footer.emailPlaceholder": "अपना ईमेल दर्ज करें",
+                "footer.subscribeBtn": "सदस्यता लें",
+                "footer.company": "कंपनी",
+                "footer.aboutUs": "हमारे बारे में",
+                "footer.ourMission": "हमारा मिशन",
+                "footer.careers": "करियर",
+                "footer.press": "प्रेस",
+                "footer.services": "सेवाएं",
+                "footer.cropMonitoring": "फसल की निगरानी",
+                "footer.weatherForecasting": "मौसम का पूर्वानुमान",
+                "footer.yieldPrediction": "पैदावार का अनुमान",
+                "footer.aiAssistant": "एआई सहायक",
+                "footer.support": "समर्थन",
+                "footer.helpCenter": "सहायता केंद्र",
+                "footer.contactUs": "हमसे संपर्क करें",
+                "footer.communityForum": "सामुदायिक मंच",
+                "footer.training": "प्रशिक्षण",
+                "footer.weatherOutlookTitle": "कृषि मौसम का पूर्वानुमान",
+                "footer.today": "आज",
+                "footer.tomorrow": "कल",
+                "footer.wednesday": "बुधवार",
+                "footer.thursday": "गुरुवार",
+                "footer.sunny": "धूप",
+                "footer.partlyCloudy": "आंशिक रूप से बादल",
+                "footer.lightRain": "हल्की बारिश",
+                "footer.overcast": "बादल छाए रहेंगे",
+                "footer.followUs": "हमारा अनुसरण करें:",
+                "footer.copyright": "सर्वाधिकार सुरक्षित।",
+                "footer.builtWith": "के साथ बनाया गया",
+                "footer.forFarmers": "दुनिया भर के किसानों के लिए",
+                "common.loading": "लोड हो रहा है..."
+            },
+            gu: {
+                "app.title": "કૃષિ સહાયક",
+                "nav.home": "હોમ",
+                "nav.crop": "પાક ડેટા",
+                "nav.weather": "હવામાન",
+                "nav.predictions": "અનુમાનો",
+                "nav.chat": "ચેટ સહાયક",
+                "home.welcome": "સ્વાગત છે, ખેડૂત",
+                "home.subtitle": "તમારો ડિજિટલ ખેતીનો સાથી",
+                "home.quickActions": "ઝડપી ક્રિયાઓ",
+                "home.addCrop": "પાક ડેટા ઉમેરો",
+                "home.checkWeather": "હવામાન તપાસો",
+                "home.viewPredictions": "અનુમાનો જુઓ",
+                "home.askQuestion": "સહાયકને પૂછો",
+                "home.todayWeather": "આજનું હવામાન",
+                "home.recentActivity": "તાજેતરની પ્રવૃત્તિ",
+                "crop.title": "પાક માહિતી",
+                "crop.subtitle": "તમારા પાકની વિગતો દાખલ કરો",
+                "crop.cropType": "પાકનો પ્રકાર *",
+                "crop.selectCrop": "પાકનો પ્રકાર પસંદ કરો",
+                "crop.plantingDate": "વાવણી તારીખ *",
+                "crop.fieldSize": "ખેતરનું કદ (એકર) *",
+                "crop.soilType": "માટીનો પ્રકાર",
+                "crop.selectSoil": "માટીનો પ્રકાર પસંદ કરો",
+                "crop.irrigationType": "સિંચાઈનો પ્રકાર",
+                "crop.selectIrrigation": "સિંચાઈનો પ્રકાર પસંદ કરો",
+                "crop.fertilizer": "વપરાયેલ ખાતર",
+                "crop.notes": "વધારાની નોંધો",
+                "crop.addCrop": "પાક ઉમેરો",
+                "common.clear": "સાફ કરો",
+                "weather.title": "હવામાન માહિતી",
+                "weather.forecast": "7-દિવસીય અનુમાન",
+                "weather.alerts": "હવામાન ચેતવણીઓ",
+                "weather.temperature": "તાપમાન",
+                "weather.humidity": "ભેજ",
+                "weather.rainfall": "વરસાદ",
+                "weather.windSpeed": "પવનની ગતિ",
+                "predictions.title": "પાકના અનુમાનો",
+                "predictions.selectedCrop": "પસંદ કરેલ પાક:",
+                "predictions.yieldPrediction": "ઉત્પાદનનું અનુમાન",
+                "predictions.harvestTime": "ઉત્તમ લણણીનો સમય",
+                "predictions.cropHealth": "પાક આરોગ્ય",
+                "predictions.marketPrice": "બજાર કિંમતનું અનુમાન",
+                "predictions.riskAnalysis": "જોખમ વિશ્લેષણ",
+                "predictions.recommendations": "ભલામણો",
+                "chat.title": "ચેટ સહાયક",
+                "chat.welcome": "નમસ્તે! હું તમારો કૃષિ સહાયક છું. આજે હું તમને કેવી રીતે મદદ કરી શકું?",
+                "chat.placeholder": "ખેતી, પાક, હવામાન વિશે મને પૂછો...",
+                "chat.botResponse": "આ એક સિમ્યુલેટેડ પ્રતિભાવ છે: ",
+                "footer.newsletterTitle": "ખેતીની માહિતી સાથે અપડેટ રહો",
+                "footer.newsletterSubtitle": "નવીનતમ કૃષિ ટીપ્સ, હવામાન અપડેટ્સ અને ટેકનોલોજી સમાચાર મેળવો.",
+                "footer.emailPlaceholder": "તમારો ઇમેઇલ દાખલ કરો",
+                "footer.subscribeBtn": "સબ્સ્ક્રાઇબ કરો",
+                "footer.company": "કંપની",
+                "footer.aboutUs": "અમારા વિશે",
+                "footer.ourMission": "અમારું મિશન",
+                "footer.careers": "કરિયર",
+                "footer.press": "પ્રેસ",
+                "footer.services": "સેવાઓ",
+                "footer.cropMonitoring": "પાક મોનિટરિંગ",
+                "footer.weatherForecasting": "હવામાનની આગાહી",
+                "footer.yieldPrediction": "ઉત્પાદનનું અનુમાન",
+                "footer.aiAssistant": "AI સહાયક",
+                "footer.support": "સપોર્ટ",
+                "footer.helpCenter": "સહાય કેન્દ્ર",
+                "footer.contactUs": "અમારો સંપર્ક કરો",
+                "footer.communityForum": "સમુદાય ફોરમ",
+                "footer.training": "તાલીમ",
+                "footer.weatherOutlookTitle": "કૃષિ હવામાનની આગાહી",
+                "footer.today": "આજે",
+                "footer.tomorrow": "આવતીકાલે",
+                "footer.wednesday": "બુધવાર",
+                "footer.thursday": "ગુરુવાર",
+                "footer.sunny": "સની",
+                "footer.partlyCloudy": "આંશિક વાદળછાયું",
+                "footer.lightRain": "હળવો વરસાદ",
+                "footer.overcast": "વાદળછાયું",
+                "footer.followUs": "અમને અનુસરો:",
+                "footer.copyright": "બધા હકો સુરક્ષિત.",
+                "footer.builtWith": "દ્વારા બનાવેલ",
+                "footer.forFarmers": "વિશ્વભરના ખેડૂતો માટે",
+                "common.loading": "લોડ કરી રહ્યું છે..."
+            }
+        };
+
+        let currentLanguageIndex = 0;
+        const availableLanguages = ['en', 'hi', 'gu'];
+
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-translate-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            document.getElementById('current-lang').textContent = lang.toUpperCase();
+        }
+
+        function toggleLanguage() {
+            currentLanguageIndex = (currentLanguageIndex + 1) % availableLanguages.length;
+            const newLang = availableLanguages[currentLanguageIndex];
+            setLanguage(newLang);
+        }
+
+        // --- Existing JavaScript functions below ---
+
+        // Placeholder functions from the original script.js
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`button[onclick="showTab('${tabName}')"]`).classList.add('active');
+        }
+
+        function submitCropData(event) {
+            event.preventDefault();
+            console.log('Form submitted!');
+            showToast('Crop data added successfully!', 'success');
+        }
+
+        function clearCropForm() {
+            document.querySelector('.crop-form').reset();
+            console.log('Form cleared!');
+            showToast('Form cleared!', 'error');
+        }
+
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            const toastMessage = toast.querySelector('.toast-message');
+            const toastIcon = toast.querySelector('.toast-icon');
+
+            toastMessage.textContent = message;
+            toastIcon.className = `toast-icon ${type}`;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function sendSuggestion(text) {
+            sendMessage(text);
+        }
+
+        function sendMessage(text = null) {
+            const chatInput = document.getElementById('chat-input');
+            const messageText = text || chatInput.value.trim();
+
+            if (messageText === '') {
+                return;
+            }
+
+            const chatMessages = document.getElementById('chat-messages');
+
+            // Create user message element
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.classList.add('message', 'user-message');
+            userMessageDiv.innerHTML = `
+                <div class="message-content">
+                    <div class="message-text">${messageText}</div>
+                    <div class="message-time">Just now</div>
+                </div>
+            `;
+            chatMessages.appendChild(userMessageDiv);
+
+            // Clear input and auto-resize
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Show loading spinner
+            const loadingOverlay = document.getElementById('loading-overlay');
+            loadingOverlay.style.display = 'flex';
+
+            const currentLang = availableLanguages[currentLanguageIndex];
+            const botResponseText = translations[currentLang]["chat.botResponse"] + `"${messageText}"`;
+
+            // Simulate API response
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.classList.add('message', 'bot-message');
+                botMessageDiv.innerHTML = `
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-text">${botResponseText}</div>
+                        <div class="message-time">Just now</div>
+                    </div>
+                `;
+                chatMessages.appendChild(botMessageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 2000);
+        }
+
+        function handleChatKeyPress(event) {
+            const chatInput = document.getElementById('chat-input');
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+            chatInput.style.height = 'auto';
+            chatInput.style.height = chatInput.scrollHeight + 'px';
+        }
+    
+        // JavaScript to set the current year in the footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearElement = document.getElementById('current-year');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+            // Set initial language on page load
+            setLanguage('en');
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.main-weather-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.location-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.temp-toggle span {
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.temp-toggle .active {
+    font-weight: 700;
+    color: #4a90e2;
+}
+
+.current-weather {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.current-temp {
+    font-size: 4em;
+    font-weight: 700;
+}
+
+.description, .high-low {
+    margin: 0;
+    font-weight: 500;
+    color: #666;
+}
+
+.forecast-row {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.forecast-item {
+    text-align: center;
+}
+
+/* Right Column Cards */
+.right-column {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.stat-card {
+    padding: 20px;
+    text-align: left;
+}
+
+.stat-title {
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.stat-status {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.map-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+/* More specific styles for bars, charts, etc. would be added here */

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="temperature.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="card main-weather-card">
+            <div class="location-header">
+                <h2>Ahmedabad, GJ 01:49PM</h2>
+                <div class="temp-toggle">
+                    <span class="active">°F</span> | <span>°C</span>
+                </div>
+            </div>
+            <div class="current-weather">
+                <img src="images/smoke.png" alt="Smoke icon" class="weather-icon">
+                <div>
+                    <span class="current-temp">32°C</span>
+                    <p class="description">Smoke</p>
+                    <p class="high-low">H:34° L:26°</p>
+                </div>
+            </div>
+            <div class="forecast-row">
+                </div>
+            <div class="hourly-chart">
+                </div>
+        </div>
+
+        <div class="right-column">
+            <div class="card stat-card">
+                <p class="stat-title">Visibility</p>
+                <div class="stat-value">4 km</div>
+                <div class="stat-status">Good</div>
+                <div class="stat-bar-container"><div class="stat-bar visibility-bar"></div></div>
+            </div>
+
+            <div class="card stat-card">
+                <p class="stat-title">Wind</p>
+                <div class="wind-details">
+                    <img src="images/wind-rose.png" alt="Wind rose" class="wind-rose">
+                    <div class="wind-speed">4 km/h</div>
+                    <div class="wind-gust">20 km/h</div>
+                </div>
+            </div>
+
+            <div class="card stat-card">
+                <p class="stat-title">Pressure</p>
+                <div class="stat-value">1009 mb</div>
+                <div class="stat-status">Falling slowly</div>
+                <div class="stat-bar-container"><div class="stat-bar pressure-bar"></div></div>
+            </div>
+
+            <div class="card stat-card">
+                <p class="stat-title">AQI</p>
+                <div class="stat-value">111</div>
+                <div class="stat-status">Poor</div>
+            </div>
+
+            <div class="card stat-card">
+                <p class="stat-title">Humidity</p>
+                <div class="stat-value">57%</div>
+                <div class="stat-status">Humid</div>
+                <div class="humidity-details">
+                    <div class="humidity-bar-container"></div>
+                    <div class="dew-point">23° Dew point</div>
+                </div>
+            </div>
+
+            <div class="card stat-card">
+                <p class="stat-title">UV</p>
+                <div class="stat-value">8</div>
+                <div class="stat-status">Very High</div>
+            </div>
+
+            <div class="card sun-hours-card">
+                <p class="stat-title">Sun hours</p>
+                <div class="sun-path">
+                    <div class="sun-icon"></div>
+                </div>
+                <div class="sun-times">
+                    <span class="sunrise">06:25 AM</span>
+                    <span class="sunset">06:45 PM</span>
+                </div>
+            </div>
+            
+            <div class="card map-card">
+                <img src="images/map.png" alt="Map" class="map-image">
+            </div>
+        </div>
+    </div>
+    <script src="temperature.js"></script>
+</body>
+</html>
